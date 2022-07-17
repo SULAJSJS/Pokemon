@@ -1,11 +1,43 @@
 import React, { useState, useEffect } from 'react'
 import './Catalog.css'
-import Pokemon from '../Homepage';  
-import Sort from '../../components/filter/filter'
+import axios from 'axios';
+import { Col } from 'react-bootstrap';
+
+// Components
+import Pokemon from '../../components/Pokemon';
+import Loader from '../../components/Loader';
+import Sort from '../../components/sort/Sort'
+
+
 function Catalog() {
 
   const [isActive, setIsActive] = useState(false);
   const [isActives, setIsActives] = useState(false);
+  const [pokemon, setPokemon] = useState([]);
+  const [loading, setLoading] = useState(true)
+  const [sortType, setSortType] = useState({
+    name: 'популярности',
+    sortProperty: 'order'
+  })
+
+    const getPokemonList = async () => {
+        let pokemonArray = [];
+        for(let i = 1; i <= 151; i ++){
+            pokemonArray.push(await getPokemonData(i));
+        }
+        console.log(pokemonArray);
+        setPokemon(pokemonArray);
+        setLoading(false);
+    }
+
+    const getPokemonData = async (id) => {
+        const res = await axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`);
+        return res;
+    }
+
+    useEffect(() => {
+        getPokemonList();
+    }, [sortType])
 
   return (
         <div class="Catalog">
@@ -65,8 +97,19 @@ function Catalog() {
                     
                   
                 <div className="r-p">
-                    <Sort />
-                      <Pokemon  />
+                    <Sort value={sortType} onChange
+                    Sort={(i) => setSortType} />
+                    {loading ? (
+                        <Loader/>
+                    ) : (
+                        <div className='grid'>
+                            {pokemon.slice(4, 8).map( p =>(
+                                <Col key={p.data.name} xs={12} sm={12} md={4} lg={4} xl={4}>
+                                    <Pokemon pokemon={p.data} />
+                                </Col>
+                            ))}
+                        </div>
+                    )}
                             {/*
                             <div class="cards">
                             <div class="card" key={el.id}>
