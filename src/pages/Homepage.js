@@ -30,15 +30,16 @@ const Homepage = () => {
         getPokemonList();
     }, [])
 
+
     return (
         <>
         {loading ? (
             <Loader/>
         ) : (
             <div className='grid'>
-                {pokemon.slice(0, 151).map( p =>(
+                {pokemon.sort().map( p =>(
                     <Col key={p.data.name} xs={12} sm={12} md={4} lg={4} xl={4}>
-                        <Pokemon pokemon={p.data}/>
+                        <Pokemon pokemon={p.data} />
                     </Col>
                 ))}
             </div>

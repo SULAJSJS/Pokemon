@@ -1,8 +1,8 @@
 import './App.css';
 import React from 'react';
 import 'macro-css';
-import { Routes, Route } from "react-router-dom";
-
+import { Route, BrowserRouter as Router } from "react-router-dom";
+import { Container } from 'react-bootstrap';
 
 import NavBar from './pages/NavBar/NavBar';
 import Catalog from './pages/Catalog/Catalog';
@@ -11,19 +11,14 @@ import PokemonPage from './pages/PokemonPage';
 
 function App() {
   return (
-    <div className="App">
-      <NavBar />
-
-
-
-      <Routes>
-        <Route path='/' element={<Catalog />}/>
-        <Route path='/pokemon/:id' element={<PokemonPage />}/>
-      </Routes>
-
-      
-      <Footer />
-    </div>
+      <Router>
+        <NavBar />
+        <Container>
+          <Route exact path='/' component={Catalog} />
+          <Route path='/pokemon/:id' component={PokemonPage}/>
+        </Container>
+        <Footer />
+       </Router>
   );
 }
 

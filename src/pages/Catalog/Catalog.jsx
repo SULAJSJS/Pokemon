@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import './Catalog.css'
 import Pokemon from '../Homepage';  
+import Sort from '../../components/filter/filter'
 function Catalog() {
 
   const [isActive, setIsActive] = useState(false);
   const [isActives, setIsActives] = useState(false);
+
   return (
         <div class="Catalog">
         <div className="razryv" style={{ height: '10px' }}>
@@ -63,14 +65,8 @@ function Catalog() {
                     
                   
                 <div className="r-p">
-                    <div class="sort"><p class="mb-20">Сортировать по:</p>
-                      <div class="sort-items">
-                        <a href="*">Популярности</a>
-                        <a href="*">Рейтингу</a>
-                        <a href="*">Уровню силы</a>
-                      </div>
-                    </div>
-                      <Pokemon />
+                    <Sort />
+                      <Pokemon  />
                             {/*
                             <div class="cards">
                             <div class="card" key={el.id}>

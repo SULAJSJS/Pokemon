@@ -3,7 +3,7 @@ import { Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import './Pokemon.css';
 
-const pokemon = ({ pokemon }) => {
+const Pokemon = ({ pokemon }) => {
 
     return (
         <>
@@ -23,5 +23,5 @@ const pokemon = ({ pokemon }) => {
     )
 }
 
-export default pokemon;
+export default Pokemon;
 
